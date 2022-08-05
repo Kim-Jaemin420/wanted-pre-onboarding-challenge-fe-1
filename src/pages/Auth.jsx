@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { signUp } from '../api/user';
 
 function Auth() {
   const [email, setEmail] = useState('');
@@ -33,8 +34,13 @@ function Auth() {
     return false;
   };
 
+  const handleSubmit = e => {
+    e.preventDefault();
+    signUp({ email, password });
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <input type="email" required value={email} onChange={handleChangeEmail} />
       <input type="password" required value={password} onChange={handleChangePassword} />
       <input
