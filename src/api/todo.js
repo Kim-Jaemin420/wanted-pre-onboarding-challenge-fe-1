@@ -6,6 +6,12 @@ export const getTodos = () => {
   });
 };
 
+export const getTodoById = id => {
+  return http.get({
+    url: `/todos/${id}`,
+  });
+};
+
 export const postTodo = ({ title, content }) => {
   return http.post({
     url: '/todos',
