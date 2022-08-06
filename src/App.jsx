@@ -1,21 +1,63 @@
+import { useContext } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Auth, TodoList, TodoDetails } from './pages/index.js';
+import { AuthContext } from './context/auth.jsx';
 import './App.css';
-import { getLocalStorage } from './utils/common.js';
-import { ACCESS_TOKEN } from './consts/net.js';
+
+const RequiredAuth = ({ children, isAuth, to = '/login' }) => {
+  if (!isAuth) {
+    return <Navigate to={to} />;
+  }
+  return <>{children}</>;
+};
 
 function App() {
-  const TOKEN = getLocalStorage(ACCESS_TOKEN);
+  const { token } = useContext(AuthContext);
 
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<TodoList />} />
-          <Route path="/signUp" element={<Auth />} />
-          <Route path="/login" element={<Auth />} />
-          <Route path="/todos" element={<TodoList />} />
-          <Route path="/todos/*" element={<TodoDetails />} />
+          <Route
+            path="/"
+            element={
+              <RequiredAuth isAuth={token}>
+                <TodoList />
+              </RequiredAuth>
+            }
+          />
+          <Route
+            path="/signUp"
+            element={
+              <RequiredAuth isAuth={!token} to="/todos">
+                <Auth />
+              </RequiredAuth>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <RequiredAuth isAuth={!token} to="/todos">
+                <Auth />
+              </RequiredAuth>
+            }
+          />
+          <Route
+            path="/todos"
+            element={
+              <RequiredAuth isAuth={token}>
+                <TodoList />
+              </RequiredAuth>
+            }
+          />
+          <Route
+            path="/todos/*"
+            element={
+              <RequiredAuth isAuth={token}>
+                <TodoDetails />
+              </RequiredAuth>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>

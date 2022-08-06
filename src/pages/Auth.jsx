@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { signUp, login } from '../api/user';
-import { ACCESS_TOKEN } from '../consts/net';
-import { setLocalStorage } from '../utils/common';
+import { AuthContext } from '../context/auth';
 
 function Auth() {
+  const { updateToken } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
   const isSignUpPage = location.pathname === '/signUp';
@@ -57,8 +57,8 @@ function Auth() {
     if (isLoginPage) {
       try {
         const { token } = await login({ email, password });
-        setLocalStorage(ACCESS_TOKEN, token);
-        navigate('/');
+        updateToken(token);
+        navigate('/todos');
       } catch (error) {
         console.log(error);
         alert('이메일 혹은 비밀번호가 일치하지 않습니다.');

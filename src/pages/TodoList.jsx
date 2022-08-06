@@ -23,12 +23,6 @@ function TodoList() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    if (!getLocalStorage(ACCESS_TOKEN)) {
-      navigate('/login');
-    }
-  }, [getLocalStorage(ACCESS_TOKEN)]);
-
   const handleClickRemoveButton = async id => {
     try {
       await deleteTodo(id);
