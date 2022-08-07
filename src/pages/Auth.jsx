@@ -9,16 +9,6 @@ function Auth() {
   const navigate = useNavigate();
   const isSignUpPage = location.pathname === '/signUp';
   const isLoginPage = location.pathname === '/login';
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleChangeEmail = e => {
-    setEmail(e.target.value);
-  };
-
-  const handleChangePassword = e => {
-    setPassword(e.target.value);
-  };
 
   const validateEmailCondition = email => {
     const EMAIL_REGEX =
@@ -27,7 +17,6 @@ function Auth() {
     if (EMAIL_REGEX.test(email)) {
       return true;
     }
-
     return false;
   };
 
@@ -37,12 +26,14 @@ function Auth() {
     if (password.length >= PASSWORD_MINIMUM_LENGTH) {
       return true;
     }
-
     return false;
   };
 
   const handleSubmit = async event => {
     event.preventDefault();
+    const { emailField, passwordField } = event.currentTarget;
+    const email = emailField.value;
+    const password = passwordField.value;
 
     if (isSignUpPage) {
       try {
@@ -66,14 +57,25 @@ function Auth() {
     }
   };
 
+  const handleChangeForm = event => {
+    let isDisabled = false;
+    const { emailField, passwordField, submit } = event.currentTarget;
+
+    if (
+      !validateEmailCondition(emailField.value) ||
+      !validatePasswordCondition(passwordField.value)
+    ) {
+      isDisabled = true;
+    }
+
+    submit.disabled = isDisabled;
+  };
+
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="email" required value={email} onChange={handleChangeEmail} />
-      <input type="password" required value={password} onChange={handleChangePassword} />
-      <input
-        type="submit"
-        disabled={!(validateEmailCondition(email) && validatePasswordCondition(password))}
-      />
+    <form onSubmit={handleSubmit} onChange={handleChangeForm}>
+      <input type="email" required name="emailField" />
+      <input type="password" required name="passwordField" />
+      <input type="submit" name="submit" disabled />
     </form>
   );
 }

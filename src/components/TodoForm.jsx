@@ -2,47 +2,47 @@ import React, { useState } from 'react';
 import { postTodo } from '../api/todo';
 
 function TodoForm({ setTodos }) {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-
-  const handleChangeTitle = event => {
-    setTitle(event.target.value);
-  };
-
   const handleChangeContent = event => {
     setContent(event.target.value);
   };
 
-  const handleSubmit = async event => {
+  const handleSubmitForm = async event => {
     event.preventDefault();
+
+    const { titleField, contentField } = event.currentTarget;
+    const title = titleField.value;
+    const content = contentField.value;
 
     try {
       const { data: todo } = await postTodo({ title, content });
 
       await setTodos(todos => [todo, ...todos]);
 
-      setTitle('');
-      setContent('');
+      titleField.value = '';
+      contentField.value = '';
     } catch (error) {
       console.log(error);
     }
   };
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="title">title</label>
-      <input type="text" id="title" value={title} onChange={handleChangeTitle} />
-      <label htmlFor="content">content</label>
-      <textarea
-        id="content"
-        name="contentField"
-        cols="30"
-        rows="3"
-        value={content}
-        onChange={handleChangeContent}
-      ></textarea>
+  const handleChangeForm = event => {
+    let isDisabled = false;
+    const { titleField, contentField, submit } = event.currentTarget;
 
-      <input type="submit" value="추가" disabled={!(title && content)} />
+    if (!titleField.value || !contentField.value) {
+      isDisabled = true;
+    }
+
+    submit.disabled = isDisabled;
+  };
+
+  return (
+    <form onSubmit={handleSubmitForm} onChange={handleChangeForm}>
+      <label htmlFor="title">title</label>
+      <input type="text" id="title" name="titleField" />
+      <label htmlFor="content">content</label>
+      <textarea id="content" name="contentField" cols="30" rows="3"></textarea>
+      <input type="submit" name="submit" value="추가" disabled />
     </form>
   );
 }

@@ -3,16 +3,16 @@ import { useNavigate } from 'react-router-dom';
 
 function TodoItem({ title, content, setTitle, setContent, handleSubmit }) {
   const navigate = useNavigate();
-  const [isDisabled, setIsDisabled] = useState(false);
 
   const handleChange = event => {
+    let isDisabled = false;
     const { titleField, contentField, submit } = event.currentTarget;
 
     setTitle(titleField.value);
     setContent(contentField.value);
 
     if (!titleField.value || !contentField.value) {
-      setIsDisabled(true);
+      isDisabled = true;
     }
 
     submit.disabled = isDisabled;
