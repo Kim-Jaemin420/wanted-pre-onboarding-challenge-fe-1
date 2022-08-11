@@ -1,0 +1,48 @@
+@use '../../styles/color';
+
+.card {
+  width: 18rem;
+  height: 23rem;
+  border: 1px solid;
+  border-radius: 0.5rem;
+  margin-bottom: 2rem;
+  margin-right: 2rem;
+  position: relative;
+  cursor: pointer;
+}
+
+.card article {
+  height: 18rem;
+}
+
+.card article > h1 {
+  display: inline-block;
+  width: 18rem;
+  height: 3rem;
+  border-bottom: 1px solid color.$primaryFont;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 2rem;
+}
+
+.card article > p {
+  margin-top: 1rem;
+  width: 18rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+  font-size: 2rem;
+  word-wrap: break-word;
+}
+
+.card button {
+  width: 100%;
+  height: 3rem;
+  font-size: 1.6rem;
+  position: absolute;
+  bottom: 0;
+  color: color.$background;
+}

@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
-import { postTodo } from '../api/todo';
+import classNames from 'classnames';
+import styles from './todoForm.module.scss';
+import { postTodo } from '../../api/todo';
+
+const { wrapper, label } = styles;
 
 function TodoForm({ setTodos }) {
   const handleChangeContent = event => {
@@ -37,11 +41,21 @@ function TodoForm({ setTodos }) {
   };
 
   return (
-    <form onSubmit={handleSubmitForm} onChange={handleChangeForm}>
-      <label htmlFor="title">title</label>
-      <input type="text" id="title" name="titleField" />
-      <label htmlFor="content">content</label>
-      <textarea id="content" name="contentField" cols="30" rows="3"></textarea>
+    <form onSubmit={handleSubmitForm} onChange={handleChangeForm} className={wrapper}>
+      <label htmlFor="title" className={classNames(label, 'a11yHidden')}>
+        title
+      </label>
+      <input type="text" id="title" name="titleField" placeholder="title" />
+      <label htmlFor="content" className={classNames(label, 'a11yHidden')}>
+        content
+      </label>
+      <textarea
+        id="content"
+        name="contentField"
+        cols="30"
+        rows="3"
+        placeholder="what do you need to do?"
+      ></textarea>
       <input type="submit" name="submit" value="추가" disabled />
     </form>
   );

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import styles from './todos.module.scss';
 import { useNavigate } from 'react-router-dom';
-import { deleteTodo, getTodos } from '../api/todo';
-import { ACCESS_TOKEN } from '../consts/net';
-import { getLocalStorage } from '../utils/common';
-import TodoForm from '../components/TodoForm';
+import { deleteTodo, getTodos } from '../../api/todo';
+import { TodoForm } from '../../components';
+import TodoCard from '../../components/TodoCard/TodoCard';
 
-function TodoList() {
+const { wrapper, title, cardWrapper } = styles;
+
+function Todos() {
   const navigate = useNavigate();
   const [todos, setTodos] = useState([]);
 
@@ -37,27 +39,23 @@ function TodoList() {
   };
 
   return (
-    <div>
-      <h1 className="title">Todo list</h1>
+    <div className={wrapper}>
+      <h1 className={title}>todos</h1>
       <TodoForm setTodos={setTodos} />
-      <ul>
+      <ul className={cardWrapper}>
         {todos.map(({ title, content, id }) => (
-          <li key={id} className="todo-list">
-            <div onClick={() => handleClickTodoList(id)} className="todo-content">
-              <span>{title}</span> <span>{content}</span>
-            </div>
-            <button
-              className="remove-button"
-              aria-label="삭제"
-              onClick={() => handleClickRemoveButton(id)}
-            >
-              X
-            </button>
-          </li>
+          <TodoCard
+            key={id}
+            id={id}
+            title={title}
+            content={content}
+            todos={todos}
+            setTodos={setTodos}
+          />
         ))}
       </ul>
     </div>
   );
 }
 
-export default TodoList;
+export default Todos;

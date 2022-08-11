@@ -1,0 +1,51 @@
+@forward './_reset';
+@forward './_common';
+
+#root {
+  width: 100%;
+  height: 100%;
+
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin-top: 10rem;
+}
+
+input[type='submit'] {
+  width: 30rem;
+  height: 4rem;
+  font-size: 2.5rem;
+  border-radius: 0.5rem;
+}
+
+input[type='text'] {
+  display: block;
+  width: 80rem;
+  height: 3rem;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+input[type='email'],
+input[type='password'] {
+  display: block;
+  width: 30rem;
+  height: 3rem;
+  margin-bottom: 1rem;
+}
+
+textarea {
+  display: block;
+  width: 80rem;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}

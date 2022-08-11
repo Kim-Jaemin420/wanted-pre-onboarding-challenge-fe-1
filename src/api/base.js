@@ -17,7 +17,7 @@ const handleRequest = config => {
         ...config,
         headers: {
           ...config.headers,
-          Authorization: `${TOKEN}`,
+          Authorization: TOKEN,
         },
       }
     : config;
@@ -27,14 +27,8 @@ const handleRespone = response => {
   return response.data;
 };
 
-const handleError = error => {
-  throw error;
-};
-
 const createApiMethod = (axiosInstance, methodType) => config => {
-  return axiosInstance({ ...handleRequest(config), method: methodType })
-    .then(handleRespone)
-    .catch(handleError);
+  return axiosInstance({ ...handleRequest(config), method: methodType }).then(handleRespone);
 };
 
 export default {

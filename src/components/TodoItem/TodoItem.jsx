@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
+import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
+import styles from './todoItem.module.scss';
+
+const { wrapper, title, buttonWrapper } = styles;
 
 function TodoItem({ title, content, setTitle, setContent, handleSubmit }) {
   const navigate = useNavigate();
@@ -23,11 +27,15 @@ function TodoItem({ title, content, setTitle, setContent, handleSubmit }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} onChange={handleChange}>
-      <h1 className="title">Todo 수정하기</h1>
-      <label htmlFor="titleField">title</label>
+    <form onSubmit={handleSubmit} onChange={handleChange} className={wrapper}>
+      <h1>Todo</h1>
+      <label htmlFor="titleField" className="a11yHidden">
+        title
+      </label>
       <input type="text" name="titleField" id="titleField" defaultValue={title} />
-      <label htmlFor="contentField">content</label>
+      <label htmlFor="contentField" className="a11yHidden">
+        content
+      </label>
       <textarea
         name="contentField"
         id="contentField"
@@ -35,8 +43,10 @@ function TodoItem({ title, content, setTitle, setContent, handleSubmit }) {
         rows="10"
         defaultValue={content}
       ></textarea>
-      <input type="submit" value="수정" name="submit" disabled />
-      <button onClick={handleClickCancelButton}>취소</button>
+      <div className={buttonWrapper}>
+        <input type="submit" value="수정" name="submit" disabled />
+        <button onClick={handleClickCancelButton}>취소</button>
+      </div>
     </form>
   );
 }

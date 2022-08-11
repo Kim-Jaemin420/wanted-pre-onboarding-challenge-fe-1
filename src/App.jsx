@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { Auth, TodoList, TodoDetails } from './pages/index.js';
+import { Auth, Todos, TodoDetail } from './pages/index.js';
 import { AuthContext } from './context/auth.jsx';
-import './App.css';
+import './styles/index.scss';
 
 const RequiredAuth = ({ children, isAuth, to = '/login' }) => {
   if (!isAuth) {
@@ -22,7 +22,7 @@ function App() {
             path="/"
             element={
               <RequiredAuth isAuth={token}>
-                <TodoList />
+                <Todos />
               </RequiredAuth>
             }
           />
@@ -46,7 +46,7 @@ function App() {
             path="/todos"
             element={
               <RequiredAuth isAuth={token}>
-                <TodoList />
+                <Todos />
               </RequiredAuth>
             }
           />
@@ -54,7 +54,7 @@ function App() {
             path="/todos/*"
             element={
               <RequiredAuth isAuth={token}>
-                <TodoDetails />
+                <TodoDetail />
               </RequiredAuth>
             }
           />

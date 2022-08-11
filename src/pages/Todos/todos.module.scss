@@ -1,0 +1,23 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column wrap;
+}
+
+.title {
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.cardWrapper {
+  display: flex;
+  flex-flow: row wrap;
+  width: 80rem;
+  margin-top: 5rem;
+  padding: 0 1rem;
+}
+
+.cardWrapper > li:nth-child(4n) {
+  margin-right: 0;
+}

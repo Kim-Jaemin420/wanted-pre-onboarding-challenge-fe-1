@@ -1,0 +1,26 @@
+@use '../../styles/color';
+
+.wrapper {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.wrapper h1 {
+  margin-bottom: 3rem;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: flex-end;
+  align-items: baseline;
+  width: 80rem;
+}
+
+.buttonWrapper button {
+  width: 30rem;
+  height: 3.8rem;
+  font-size: 2.5rem;
+  border-radius: 0.4rem;
+  color: color.$background;
+}

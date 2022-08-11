@@ -1,7 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { signUp, login } from '../api/user';
-import { AuthContext } from '../context/auth';
+import { signUp, login } from '../../api/user';
+import { AuthContext } from '../../context/auth';
+import styles from './auth.module.scss';
+
+const { wrapper, formTitle } = styles;
 
 function Auth() {
   const { updateToken } = useContext(AuthContext);
@@ -9,6 +12,10 @@ function Auth() {
   const navigate = useNavigate();
   const isSignUpPage = location.pathname === '/signUp';
   const isLoginPage = location.pathname === '/login';
+  const currentPathname = useMemo(() => {
+    if (isSignUpPage) return 'sign up';
+    if (isLoginPage) return 'login';
+  }, [isLoginPage, isSignUpPage]);
 
   const validateEmailCondition = email => {
     const EMAIL_REGEX =
@@ -73,9 +80,12 @@ function Auth() {
 
   return (
     <form onSubmit={handleSubmit} onChange={handleChangeForm}>
-      <input type="email" required name="emailField" />
-      <input type="password" required name="passwordField" />
-      <input type="submit" name="submit" disabled />
+      <fieldset className={wrapper}>
+        <legend className={formTitle}>{currentPathname}</legend>
+        <input type="email" required name="emailField" />
+        <input type="password" required name="passwordField" />
+        <input type="submit" name="submit" value={currentPathname} disabled />
+      </fieldset>
     </form>
   );
 }

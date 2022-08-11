@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { getTodoById, putTodo } from '../api/todo';
-import { TodoItem } from '../components';
+import { getTodoById, putTodo } from '../../api/todo';
+import { TodoItem } from '../../components';
 
-function TodoDetails() {
+function TodoDetail() {
   const location = useLocation();
   const navigate = useNavigate();
   const id = location.pathname.split('/')[location.pathname.split('/').length - 1];
@@ -54,4 +54,4 @@ function TodoDetails() {
   );
 }
 
-export default TodoDetails;
+export default TodoDetail;
